@@ -1,0 +1,42 @@
+****Fitness assays (p. 97 B. Woods)
+for the assays, do red of left versus white of right, as well as
+white of left versus red of right.
+
+For each assay, two clones are inoculated separately into flasks containing LB
+liquid medium from the freezer stocks and allowed to grow for 24 hours at 37C.
+These cultures were then diluted 100 fold, and 0.1ml is transferred to 9.9ml
+DM25, where the cultures were again allowed to grow separately for 24 hours at
+37C. This step allows for physiological acclimation to the competition
+conditions. 
+
+The two clones were then mixed at 6 initial volumetric ratios,
+ and a combined 0.1ml was added to 9.9ml fresh DM25. A sample was taken
+from this mixture, and plated onto TA agar to estimate the initial pop. density
+of each type (Ni). The mixture was propagated for one or more days with daily
+1:100 dilutions into fresh DM25 medium. At the end of the experiment, a second
+sample of the mixture was plated onto TA agar to estimate the final density of
+each type (Nf). The Malthusian parameter (m) is the realized growth rate of a
+clone over the test period. It is calculated as m = ln(100^t * Nf/Ni)/(t), 
+where t is the number of days, and where both counts reflect changes in overall
+density based on the dilutions used for plating. The relative fitness of one
+clone to another is the ratio of their Malthusian parameters.
+
+Single clones are isolated from each clade, and Ara revertants are made from each.
+Also do reverse competitions, where the
+only difference is the polarity of the ara mutation.
+
+6 replicate of each ratio, *2 for the two types * 3 for ratios = 36 total competitions.
+do all the 10Ks on the same day, and do the 7.5Ks on the same day.
+
+For frequency dependence, do intial volumetric ratios of 
+(1:10, 1:1, 10:1), and do fitness assays that last 1 day.
+
+
+plate 100ul on each plate, and plate 3 plates from each dilution tube.
+
+***** Design for 10K FD experiment
+do 10:1, 1:1, 1:10 ratios of the two competitors--don't need to worry about polarity of the mutation.
+do 12 replicates of each ratio.
+because the number of colonies for the rare competitor is low on the plate,
+plate 3x for each dilution.
+I will need 36*3 + 1 TA plates for day 0 and day 6: 110 plates for the experiment.

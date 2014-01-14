@@ -1,0 +1,114 @@
+##7.5K_FDcompetition.R by Rohan Maddamsetti
+##This script analyzes 04122012_competition_data.csv to test for
+##frequency-dependence between the two clades that co-existed at this timepoint.
+
+##helper functions for the analysis
+##DO NOT cut and paste these verbatim into other scripts--
+##the data must be in the format given in 04222012_competition_data.csv.
+
+##This function sums rows of the data over DT.replicate.
+sum.DT.replicates <- function(the.input.data) {
+data <- aggregate(the.input.data[,c("D0.red","D0.white","Df.red","Df.white")],by=list(the.input.data$Ratio,the.input.data$Replicate),FUN=sum,na.rm=TRUE)
+colnames(data)[1] = "Ratio"
+colnames(data)[2] = "Replicate"
+return(data)
+}
+
+##This function analyzes the data.
+##The samplesize parameter must be adjusted to calculate confint expressions
+##if some plates or cultures failed.
+analyze.data <- function(data, samplesize=6, days.of.competition=6) {
+data$Mr <- log(data$Df.red*100^days.of.competition/data$D0.red)
+data$Mw <- log(data$Df.white*100^days.of.competition/data$D0.white)
+data$W <- data$Mr/data$Mw
+ratio1 <- subset(data,Ratio=="1:9")
+ratio2 <- subset(data,Ratio=="1:1")
+ratio3 <- subset(data,Ratio=="9:1")
+mean1 <- mean(ratio1$W, na.rm=T)
+mean2 <- mean(ratio2$W, na.rm=T)
+mean3 <- mean(ratio3$W, na.rm=T)
+sd1 <- sd(ratio1$W, na.rm=T)
+sd2 <- sd(ratio2$W, na.rm=T)
+sd3 <- sd(ratio3$W, na.rm=T)
+
+confint1 <- c(mean1 - 1.96*sd1/sqrt(samplesize), mean1 + 1.96*sd1/sqrt(samplesize))
+confint2 <- c(mean2 - 1.96*sd2/sqrt(samplesize), mean2 + 1.96*sd2/sqrt(samplesize))
+confint3 <- c(mean3 - 1.96*sd3/sqrt(samplesize), mean3 + 1.96*sd3/sqrt(samplesize))
+
+print("mean1 is:")
+print(mean1)
+print("mean2 is:")
+print(mean2)
+print("mean3 is:")
+print(mean3)
+
+print("confint1 is:")
+print(confint1)
+print("confint2 is:")
+print(confint2)
+print("confint3 is:")
+print(confint3)
+
+##return a dataframe of the results for plotting.
+left.error <- c(confint1[1],confint2[1],confint3[1])
+right.error <- c(confint1[2],confint2[2],confint3[2])
+results <- data.frame(Ratio=as.factor(c("1:9","1:1","9:1")),Fitness=c(mean1,mean2,mean3),Left=left.error,Right=right.error)
+return(results)
+}
+
+##This is where the analysis starts.
+
+input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/04122012_competition_data.csv")
+competition.48.7.data <- input.data[input.data$Competition=="48+7",]
+competition.45.8.data <- input.data[input.data$Competition=="45+8",] 
+
+#First, examine both competitions separately.
+#Check to make sure both give the same trend.
+#Then it should be OK to combine both datasets.
+#This is to check that there isn't any problems with the data/experiment.
+
+comp1 <- sum.DT.replicates(competition.48.7.data)
+comp2 <- sum.DT.replicates(competition.45.8.data)
+analyze.data(comp1)
+analyze.data(comp2)
+
+##Now, combine the data from the competitions.
+##The two competitions are identical, but have reversed polarity,
+##i.e. one is red vs. white, and the other is white vs. red
+##for the two competitors.
+
+##The easiest thing to do, is to swap the names of the columns for comp2,
+##i.e., swap D0.red and D0.white, etc., and change the values in the
+##Replicate column from 1-6 to 7-12. Then, add this dataframe to comp1,
+## and analyse all the data together.
+names(comp2) <- c("Ratio", "Replicate", "D0.white", "D0.red", "Df.white", "Df.red")
+comp2$Replicate <- c(7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,12,12,12)
+
+##In the 10K FD competition, the Clade 1 clone (RM1.19.62) is red, and the
+##Clade 2 clone (RM2.34.1) is white.
+##In this 7.5K FD competition, the Clade 1 clone (RM1.72.53)'s red version is
+##RM2.12.7, and the Clade 2 clone (RM1.72.69)'s white version is RM2.48.1.
+##So, the 48+7 competition has the same polarity as the 10K competition.
+##By switching the polarity of comp2 and analyzing full.data, these results
+##are directly comparable to the 10K FD competition results.
+
+full.data <- rbind(comp1,comp2)
+results <- analyze.data(full.data,samplesize=12)
+
+##Now plot the results of the competition.
+library(ggplot2)
+
+##manually change levels to plot x-axis properly.
+ratio.table <- table(results$Ratio)
+ratio.levels <- names(ratio.table)[rank(results$Ratio)]
+results$Ratio <- factor(results$Ratio, levels = ratio.levels)
+
+the.plot <- ggplot(results,aes(x=Ratio,y=Fitness)) +
+  geom_errorbar(aes(ymin=Left,ymax=Right),width=0.1) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(limits=c(0.94,1.04)) +
+  labs(title="Difference in Fitness between Competitors at 7500 Generations") +
+  geom_hline(aes(yintercept=1), colour="#990000", linetype="dashed")
+
+ggsave(the.plot, file="/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/7.5K_FDplot.pdf")
