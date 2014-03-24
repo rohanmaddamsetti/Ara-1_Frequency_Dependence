@@ -66,35 +66,36 @@ plot.FD.competition(tenK.results, tenK.title, tenK.output.file, rev.x.labels=TRU
 ###############################################################
 #### analyze nuoM FD competition data.
 
-nuoM.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/07192012_competition_data.csv")
-nuoM.data <- sum.DT.replicates(nuoM.input.data)
-nuoM.sample.size <- 12 
-nuoM.days = 6
-nuoM.results <- analyze.FD.data(nuoM.data, nuoM.sample.size, nuoM.days)
-nuoM.title <- "Difference in Fitness between Competitors"
-nuoM.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoM_FDplot.eps"
-plot.FD.competition(nuoM.results, nuoM.title, nuoM.output)
+#nuoM.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/07192012_competition_data.csv")
+#nuoM.data <- sum.DT.replicates(nuoM.input.data)
+#nuoM.sample.size <- 12 
+#nuoM.days = 6
+#nuoM.results <- analyze.FD.data(nuoM.data, nuoM.sample.size, nuoM.days)
+#nuoM.title <- "Difference in Fitness between Competitors"
+#nuoM.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoM_FDplot.eps"
+#plot.FD.competition(nuoM.results, nuoM.title, nuoM.output)
 
 ###############################################################
 ###### analyze nuoG FD competition data.
 
-nuoG.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/08202012_competition_data.csv")
-nuoG.data <- sum.DT.replicates(nuoG.input.data)
-nuoG.sample.size <- 12 
-nuoG.days = 6
-nuoG.results <- analyze.FD.data(nuoG.data, nuoG.sample.size, nuoG.days)
-nuoG.title <- "Difference in Fitness between Competitors"
-nuoG.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoG_FDplot.eps"
-plot.FD.competition(nuoG.results, nuoG.title, nuoG.output)
+#nuoG.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/08202012_competition_data.csv")
+#nuoG.data <- sum.DT.replicates(nuoG.input.data)
+#nuoG.sample.size <- 12 
+#nuoG.days = 6
+#nuoG.results <- analyze.FD.data(nuoG.data, nuoG.sample.size, nuoG.days)
+#nuoG.title <- "Difference in Fitness between Competitors"
+#nuoG.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoG_FDplot.eps"
+#plot.FD.competition(nuoG.results, nuoG.title, nuoG.output)
 
 ###############################################################
 ###### analyze nuoG-nadR FD competition data.
 
-nadR.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/06192013_competition_data.csv")
-nadR.data <- sum.DT.replicates(nadR.input.data)
-nadR.sample.size <- 12 
-nadR.days = 6
-nadR.results <- analyze.FD.data(nadR.data, nadR.sample.size, nadR.days)
-nadR.title <- "Difference in Fitness between Competitors"
-nadR.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoG-nadR_FDplot.eps"
-plot.FD.competition(nadR.results, nadR.title, nadR.output)
+#nadR.input.data <- read.csv("/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/data/06192013_competition_data.csv")
+#nadR.data <- sum.DT.replicates(nadR.input.data)
+#nadR.sample.size <- 12
+
+#nadR.days = 6
+#nadR.results <- analyze.FD.data(nadR.data, nadR.sample.size, nadR.days)
+#nadR.title <- "Difference in Fitness between Competitors"
+#nadR.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/nuoG-nadR_FDplot.eps"
+#plot.FD.competition(nadR.results, nadR.title, nadR.output)

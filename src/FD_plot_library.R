@@ -49,6 +49,25 @@ results <- data.frame(Ratio=as.factor(c("1:9","1:1","9:1")),Fitness=c(mean1,mean
 return(results)
 }
 
+change.ratio.helper <- function (element) {
+  if (element == "1:9") {
+    return(0.1)
+  }
+  else if (element == "1:1") {
+    return(0.5)
+  }
+  else if (element == "9:1") {
+    return(0.9)
+  }
+}
+
+best.fit <- function(results) {
+  work.with <- results
+  work.with$Frequency <- sapply(work.with$Ratio, change.ratio.helper)
+  model <- lm(data=work.with,Fitness~Frequency)
+  return(coef(model))
+}
+
 plot.FD.competition <- function (results, plot.title, output.file,rev.x.labels=FALSE) {
 
 ##change levels to plot x-axis properly.
@@ -59,15 +78,19 @@ plot.FD.competition <- function (results, plot.title, output.file,rev.x.labels=F
     ratio.levels <- names(ratio.table)[rank(results$Ratio)]
   }
   results$Ratio <- factor(results$Ratio, levels = ratio.levels)
-
+  
+#  the.intercept <- best.fit(results)[1]
+#  the.slope <- best.fit(results)[2]
+  
   the.plot <- ggplot(results,aes(x=Ratio,y=Fitness)) +
-    geom_hline(aes(yintercept=1), colour="white", size=2) +
+    geom_hline(aes(yintercept=1), colour="#EE5623", size=2) +
+   #   geom_abline(intercept=the.intercept, slope=the.slope) + 
       geom_errorbar(aes(ymin=Left,ymax=Right),width=0.1, size=2) +
         geom_line() +
           geom_point(size=4) +
             scale_y_continuous(limits=c(0.94,1.06)) +
               labs(title=plot.title) +
-                theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), axis.ticks=element_blank(), panel.background=element_rect(fill="#868686"))
+                theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(), axis.ticks=element_blank(), panel.background=element_rect(fill="#FFFFFF"))
 
 
 ggsave(the.plot, file=output.file)
