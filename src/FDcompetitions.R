@@ -44,7 +44,10 @@ results <- analyze.FD.data(full.data,samplesize=12)
 
 the.title <- "Difference in Fitness between Competitors at 7500 Generations"
 the.output <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/7.5K_FDplot.eps"
-plot.FD.competition(results, the.title ,the.output)
+
+## Reverse the x-labels: these particular data are formatted in the opposite direction.
+plot.FD.competition(results, the.title ,the.output, rev.x.labels=TRUE)
+#plot.FD.competition(results, the.title ,"/Users/Rohandinho/Desktop/sevenTest.pdf", rev.x.labels=TRUE)
 
 ###############################################################
 ###analyze 10K competition data.
@@ -57,11 +60,8 @@ tenK.results <- analyze.FD.data(tenK.data, tenK.sample.size, 6)
 tenK.title <- "Difference in Fitness between Competitors at 10000 Generations"
 tenK.output.file <- "/Users/Rohandinho/Desktop/Projects/Ara-1_Frequency_Dependence/results/10K_FDplot.eps"
 
-## Reverse the x-labels: these particular data are formatted in the opposite
-## red:white ratio compared to the other data sets. To avoid input errors, the
-## csv file storing these data is formatted as the data was written in my lab
-## notebook.
-plot.FD.competition(tenK.results, tenK.title, tenK.output.file, rev.x.labels=TRUE)
+plot.FD.competition(tenK.results, tenK.title, tenK.output.file)
+#plot.FD.competition(tenK.results, tenK.title, "/Users/Rohandinho/Desktop/tenTest.pdf")
 
 ###############################################################
 #### analyze nuoM FD competition data.

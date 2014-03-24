@@ -13,7 +13,8 @@ return(data)
 analyze.FD.data <- function(data, samplesize, days.of.competition=6) {
 data$Mr <- log(data$Df.red*100^days.of.competition/data$D0.red)
 data$Mw <- log(data$Df.white*100^days.of.competition/data$D0.white)
-data$W <- data$Mr/data$Mw
+data$W <- data$Mw/data$Mr
+#data$W <- data$Mr/data$Mw
 ratio1 <- subset(data,Ratio=="1:9")
 ratio2 <- subset(data,Ratio=="1:1")
 ratio3 <- subset(data,Ratio=="9:1")
